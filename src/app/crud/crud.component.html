@@ -1,0 +1,143 @@
+
+<div>
+<div class="container" >
+ <div class="mat-row">
+   <form action="">
+     <mat-card class="margin-top py-4 px-md-4">
+     <div class="row">
+        <div class="col-sm-2 margin-left">
+         <mat-form-field class="example-full-width" style="height: 2px;" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Enter your name"[formControl]="name">
+        </mat-form-field>
+        </div>
+
+        <div class="col-sm-2 margin-left"><mat-form-field appearance="outline">
+           <mat-label>Age</mat-label>
+           <input type="number" [formControl]="age" matInput>
+           </mat-form-field></div>
+        <div class="col-sm-2 margin-left" ><mat-form-field class="mb-4" appearance="outline">
+        <mat-label>Degree</mat-label>
+        <mat-select [formControl]="degree">
+        <mat-option value="BCS">BCS</mat-option>
+        <mat-option value="BCA">BCA</mat-option>
+        <mat-option value="BCOM">BCOM</mat-option>
+        <mat-option value="MSC">MSC</mat-option>
+        <mat-option value="MCA">MCA</mat-option>
+        <mat-option value="BA">BA</mat-option>
+        </mat-select>
+        </mat-form-field>
+        </div>
+
+        <div class="col-sm-2 margin-left"><mat-form-field class="mb-4" appearance="outline">
+                <mat-label>Department</mat-label>
+                <mat-select [formControl]="department">
+                <mat-option value="Computer Science">Computer Science</mat-option>
+                <mat-option value="Computer Application">Computer Application</mat-option>
+                <mat-option value="English">English</mat-option>
+                <mat-option value="Mathematics">Mathematics</mat-option>
+                <mat-option value="Accountancy">Accountancy</mat-option>
+                <mat-option value="Business Managemanet">Business Managemanet</mat-option>
+                </mat-select>
+                </mat-form-field></div>
+
+        <div class="col-sm-2 margin-left">
+        <mat-form-field appearance="outline">
+          <mat-label>Languages Known</mat-label>
+          <mat-select multiple="true" [formControl]="skills">
+            <mat-option *ngFor="let list of skilllist" [value]="list">{{list}}</mat-option>
+          </mat-select>
+       </mat-form-field>
+                  </div></div>
+
+        <div class="row">            
+          <div class="col-sm-2 margin-left"><mat-radio-group class="mb-4 margin-left"[formControl]="gender" >
+          <mat-label>Gender</mat-label><br>
+          
+         <mat-radio-button value="male" color="primary" [formControl]="gender" >Male</mat-radio-button>
+         <mat-radio-button value="female"color="primary"[formControl]="gender">Female</mat-radio-button>
+        </mat-radio-group></div>
+
+          <div class="col-sm-2 margin-left"> <mat-form-field color="primary"appearance="outline">
+            <mat-label>Date of birth</mat-label>
+           <input matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD" [formControl]="dob">
+           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+             <mat-datepicker #picker ></mat-datepicker>
+           </mat-form-field></div> 
+        </div>
+      
+      <div class="margin-top">
+        <button mat-raised-button  class="margin-left"*ngIf="createbtn" (click)="insert()" color="primary">Create</button>
+      <button mat-raised-button class="margin-left"  color="warn" (click)="clear()">Cancel</button>
+      <button mat-raised-button class="margin-left" color="accent" *ngIf="updatebtn" (click)="update()">Update</button>
+</div>
+         </mat-card>
+       </form> </div>
+        <div class="mat-row">
+<table mat-table [dataSource]="dataSource" class=" margin-top" matSort matSortStart="asc" >
+       
+        <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+         <ng-container matColumnDef="age">
+        <th mat-header-cell *matHeaderCellDef> Age </th>
+        <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="gender">
+                <th mat-header-cell *matHeaderCellDef> Gender </th>
+                <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+                </ng-container>
+      <ng-container matColumnDef="dob">
+                        <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
+                        <td mat-cell *matCellDef="let element"> {{element.dob}} </td>
+          </ng-container>
+         <ng-container matColumnDef="degree">
+        <th mat-header-cell *matHeaderCellDef> Degree </th>
+        <td mat-cell *matCellDef="let element"> {{element.degree}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="department">
+                <th mat-header-cell *matHeaderCellDef> Department </th>
+                <td mat-cell *matCellDef="let element"> {{element.department}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="languages known">
+                        <th mat-header-cell *matHeaderCellDef> Languages known </th>
+                        <td mat-cell *matCellDef="let element"> {{element.skills}} </td>
+                        </ng-container>
+
+
+         <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef> Edit </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="accent" (click)="edit(element)" >
+            <mat-icon class="mat-18">edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element" (click)="del(element)">
+          <button mat-icon-button color="warn" >
+              <mat-icon class="mat-18">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>              
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+       
+      </table>
+      <mat-paginator [pageSize]="4" [pageSizeOptions]="[2, 4, 6, 10, 20]" >
+     </mat-paginator></div>
+     
+
+</div></div>
+

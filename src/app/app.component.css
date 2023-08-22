@@ -1,0 +1,15 @@
+.margin-top{
+        margin-top: 15px;
+}
+.margin-left{
+        margin-left: 10px;
+}
+.margin-bottom{
+        margin-bottom: 20px;
+}
+table{
+        width: 100%;
+}
+th.mat-sort-header-sorted {
+        color: black;
+      }
